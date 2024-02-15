@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram - Registration</title>
+    <style>
+        body {
+            background-color: #f0f0f0; /* Фоновый цвет */
+            font-family: Arial, sans-serif; /* Шрифт */
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        p {
+            text-align: center;
+        }
+        h3 {
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+            color: #3897f0; /* Цвет заголовка */
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3897f0; /* Цвет кнопки */
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #357ae8; /* Цвет кнопки при наведении */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Instagram</h1>
+        <h3>Sign up to see photos and videos from your friends.</h3>
+    <button>Log in with Facebook</button>
+    <div style="text-align: center; margin: 10px 0;">
+        <span> O R </span>
+    </div>
+    <form method="post" th:action="@{/instagram.com/login/registration}" th:object="${newUser}">
+        <div>
+            <label for="name" class="form-label"></label>
+            <input type="text" th:field="*{userName}" class="form-control"  placeholder="User name" required id="name"><br>
+        </div>
+        <div>
+            <label for="email" class="form-label"></label>
+            <input type="text" th:field="*{email}" class="form-control" placeholder="Email" required id="email"><br>
+        </div>
+        <div>
+            <label for="password" class="form-label"></label>
+            <input type="text" th:field="*{password}" class="form-control" placeholder="Password" required id="password"><br>
+        </div>
+        <div>
+            <label for="phone" class="form-label"></label>
+            <input type="text" th:field="*{phoneNumber}" class="form-control" placeholder="Phone number" required id="phone"><br>
+        </div>
+        <button type="submit" class="btn btn-success">Sign up</button>
+    </form>
+        <p>Have an account? <a th:href="@{/instagram.com/login}">Log in</a></p>
+</div>
+</body>
+
+</html>
