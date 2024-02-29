@@ -1,6 +1,10 @@
 package peaksoft.repository;
 
+import peaksoft.entities.Image;
+
 public interface ImageRepository {
+    void saveImageWithPost(Image image);
+
     // Crud methods
 
     // save

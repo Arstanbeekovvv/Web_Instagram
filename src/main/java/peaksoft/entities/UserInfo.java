@@ -21,10 +21,11 @@ public class UserInfo extends BaseEntity {
     @Column(name = "full_name")
     private String fullName;
     private String biography;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private String image;
 
 //*********************************************
-    @OneToOne(cascade = {REFRESH})
+    @OneToOne(cascade = {REFRESH}, mappedBy = "userInfo")
     private User user;
 }

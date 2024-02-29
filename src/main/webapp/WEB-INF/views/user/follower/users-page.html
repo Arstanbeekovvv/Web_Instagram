@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'@' + ${user.getUserName()}"></title>
+    <link rel="icon" href="https://www.instagram.com/static/images/ico/favicon.ico/36b3ee2d91ed.ico"
+          type="image/x-icon">
+    <style>
+        /* Общие стили */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            background-color: #fafafa;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: #ffffff;
+            border-right: 3px solid #dbdbdb;
+        }
+
+        .side {
+            height: 20px;
+        }
+
+        .sidebar-i {
+            padding: 16px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .sidebar-item {
+            padding: 18px 40px;
+            cursor: pointer;
+            font-family: 'Helvetica Neue', Arial, sans-serif; /* Изменяем шрифт */
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: #262626;
+            margin: 0;
+        }
+
+        /**/
+
+        .prof {
+            width: 1250px;
+        }
+
+        /* Профиль пользователя */
+        .profile {
+            padding-left: 180px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .profile img {
+            width: 200px;
+            height: 200px;
+            border-radius: 200%;
+            margin-right: 85px;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-info h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: normal;
+        }
+
+        .profile-info p {
+            margin: 30px 0;
+            font-size: 14px;
+        }
+
+        .profile button {
+            background-color: #3897f0;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .profile button:hover {
+            background-color: #2684f0;
+        }
+
+
+        /* Секции */
+        .sections {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .section {
+            flex: 1;
+            text-align: center;
+            border: 1px solid #dbdbdb;
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        .photo-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* добавляем пространство между элементами */
+        }
+
+        .feed-item {
+            flex: 0 0 calc(33.33% - 10px); /* учитываем пространство между элементами */
+            max-width: calc(33.33% - 10px);
+            padding-top: calc(33.33% - 10px); /* вычисляем высоту с учетом пространства между элементами */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feed-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            width: 120px;
+            height: auto;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .post {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .post img {
+            width: 100%;
+            height: auto;
+        }
+
+        .post header {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+        }
+
+        .post header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .post header h3 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .post footer {
+            padding: 0.5rem;
+        }
+
+        .like-btn {
+            cursor: pointer;
+            color: #8e8e8e;
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+
+        .modal {
+            display: none; /* Скрыто по умолчанию */
+            position: fixed; /* Положение фиксированное */
+            z-index: 1; /* На переднем плане */
+            left: 0;
+            top: 0;
+            width: 100%; /* Ширина экрана */
+            height: 100%; /* Высота экрана */
+            overflow: auto; /* Прокручивание если содержимое больше размеров экрана */
+            background-color: rgb(0, 0, 0); /* Цвет фона */
+            background-color: rgba(0, 0, 0, 0.4); /* Цвет фона с прозрачностью */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% от верхнего и нижнего края экрана, центрируем */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Ширина контента */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .subscriber {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .subscriber img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .subscriber .username {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <!-- Vertical navigation panel -->
+        <div class="sidebar-i"><h2>Instagram</h2></div>
+        <div class="sidebar-item">
+            <a th:href="@{/instagram.com/user}">Home</a></div>
+        <div class="sidebar-item">
+            <a th:href="@{/instagram.com/user/search-query}">Search query</a></div>
+        <div class="sidebar-item">Interesting</div>
+        <div class="sidebar-item">Reels</div>
+        <div class="sidebar-item">Messages</div>
+        <div class="sidebar-item">Notifications</div>
+        <div class="sidebar-item"><a th:href="@{/instagram.com/user/new-post}">Create</a></div>
+        <div class="sidebar-item"><a th:href="@{/instagram.com/user/profile}" style="font-weight: bold;">Profile</a>
+        </div>
+        <div class="sidebar-item"></div>
+        <div class="sidebar-item"></div>
+        <div class="sidebar-item"></div>
+        <div class="sidebar-item">Threads</div>
+        <div class="sidebar-item">Yet</div>
+        <!-- Add other navigation items as needed -->
+    </div>
+    <div class="prof">
+        <div class="profile">
+            <img th:src="${user.getUserInfo().getImage()}" alt="Profile Picture">
+            <div class="profile-info">
+                <div class="user-header" style="display: flex; align-items: center;">
+                    <h2 th:text="'     ' + ${user.getUserName()}" style="margin-right: 30px;"></h2>
+                    <button id="subscribeButton" onclick="toggleSubscription(); subscribe()" th:data-userId="${user.id}">subscribe</button>
+                </div>
+                <div class="side"></div>
+                <h2>
+                    <span th:text="${publications}" style="font-weight: normal;"></span> publications
+                    <a onclick="showFollowers()"><span id="followersCount" style="margin-left: 30px"
+                                                       th:text="${subscribers}"></span> followers </a>
+                    <a onclick="showFollowing()"><span id="followingCount" style="margin-left: 30px"
+                                                       th:text="${subscriptions}"></span> following</a>
+                </h2>
+                <div id="followersModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h3>Followers</h3>
+                        <div class="subscriber" th:each="sbsbrs: ${subscribersUser}">
+                            <img th:src="${sbsbrs.userInfo.image}" alt="Subscriber">
+                            <div class="username" th:text="${sbsbrs.userName}"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="followingModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h3>Followers</h3>
+                        <div class="subscriber" th:each="sbsbrs: ${subscriptionsUser}">
+                            <img th:src="${sbsbrs.userInfo.image}" alt="Subscriber">
+                            <div class="username" th:text="${sbsbrs.userName}"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side"></div>
+                <div style="height: 20px" th:text="${user.getUserInfo().getFullName()}"></div>
+                <div style="height: 20px" th:text="${user.getUserInfo().getBiography()}"></div>
+            </div>
+        </div>
+
+        <div class="sections">
+            <div class="section">
+                <h2 style="font-weight: normal"> # publications</h2>
+                <div class="photo-section">
+                    <div th:each="post: ${posts.reversed()}" class="feed-item">
+                        <img th:src="${post.images.get(0).ImageURL}" alt="Feed Item">
+                    </div>
+                    <!-- Placeholder for feed items -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add more posts here -->
+</div>
+
+<!-- Modal window -->
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImg">
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+
+    // Function to open the modal window and display the image
+    function openModal(imageSrc) {
+        document.getElementById('modalImg').src = imageSrc;
+        document.getElementById('myModal').style.display = 'block';
+    }
+
+    // Function to close the modal window
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+    }
+
+    function showFollowers() {
+        var modal = document.getElementById("followersModal");
+        modal.style.display = "block";
+    }
+
+    function showFollowing() {
+        // Здесь может быть код для отображения тех, на кого вы подписаны
+        var modal = document.getElementById("followingModal");
+        modal.style.display = "block"
+    }
+
+    // Получаем значение типа boolean из контроллера
+    var isSubscribed = [[${boolean}]]/* значение, полученное из контроллера */;
+
+    // Функция для установки внешнего вида кнопки подписки в зависимости от значения isSubscribed
+    function setSubscribeButtonAppearance() {
+        var subscribeButton = document.getElementById('subscribeButton');
+
+        if (isSubscribed) {
+            subscribeButton.style.backgroundColor = '#dbdbdb';
+            subscribeButton.style.color = '#000'; // Изменяем цвет текста на черный
+            subscribeButton.innerText = 'Subscription'; // Изменяем текст кнопки
+        } else {
+            subscribeButton.style.backgroundColor = '#3897f0';
+            subscribeButton.style.color = '#fff'; // Изменяем цвет текста на белый
+            subscribeButton.innerText = 'Subscriber'; // Изменяем текст кнопки
+        }
+    }
+
+    // Вызываем функцию для установки начального вида кнопки
+    setSubscribeButtonAppearance();
+
+    // Функция для изменения внешнего вида кнопки подписки и переключения значения isSubscribed
+    function toggleSubscription() {
+        isSubscribed = !isSubscribed; // Инвертируем значение
+
+        // Вызываем функцию для установки нового вида кнопки
+        setSubscribeButtonAppearance();
+    }
+    function subscribe() {
+        var userId = parseInt(document.getElementById('subscribeButton').getAttribute('data-userId'));
+        $.ajax({
+            type: "POST",
+            url: "/instagram.com/user/follower/action", // Путь к методу в вашем контроллере
+            data: {
+                userId: userId// Дополнительные данные, которые вы можете отправить на сервер
+            },
+            success: function (response) {
+                console.log("Successfully following! ");
+            },
+            error: function (xhr, status, error) {
+                // Обработка ошибки
+                console.error("Error action! ", error);
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

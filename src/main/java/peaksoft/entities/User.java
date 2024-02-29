@@ -9,7 +9,7 @@ import peaksoft.forEntities.BaseEntity;
 
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.REMOVE;
+import static jakarta.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "users")
@@ -29,7 +29,7 @@ public class User extends BaseEntity {
 
 //*********************************************
 
-    @OneToMany(cascade = {REMOVE}, mappedBy = "user")
+    @OneToMany(cascade = {REMOVE, PERSIST, MERGE}, mappedBy = "user")
     private List<Post> posts;
 //*********************************************
     @OneToMany(cascade = {REMOVE}, mappedBy = "user")
@@ -37,6 +37,16 @@ public class User extends BaseEntity {
 //*********************************************
 //    @ManyToOne(cascade = {REMOVE})
 //    private Image image;
+
+    @OneToOne
+    private UserInfo userInfo;
+
+    @OneToOne
+    private Follower follower;
+
+    @OneToOne
+    private Like like;
+
 
 
 }

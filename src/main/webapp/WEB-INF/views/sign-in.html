@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram - Вход</title>
+    <link rel="icon" href="https://www.instagram.com/static/images/ico/favicon.ico/36b3ee2d91ed.ico" type="image/x-icon">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,6 +59,25 @@
             border: 1px solid #dbdbdb;
             border-radius: 5px;
             box-sizing: border-box;
+            position: relative;
+        }
+
+        .password-toggle-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            background-color: transparent;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+        }
+
+        .password-toggle-btn img {
+            width: 20px;
+            height: 20px;
         }
 
         p {
@@ -75,18 +95,33 @@
 <div class="container">
     <h1>Instagram</h1>
     <h2>Log in</h2>
-    <form method="post" th:action="@{/instagram.com/login}" th:object="${newUserForSignIn}">
+    <form method="post" th:action="@{/instagram.com/login/log}" th:object="${newUserForSignIn}">
         <div>
             <label for="name" class="form-label"></label>
             <input type="text" th:field="*{userName}" class="form-control"  placeholder="User name" required id="name"><br>
         </div>
         <div>
             <label for="password" class="form-label"></label>
-            <input type="text" th:field="*{password}" class="form-control" placeholder="Password" required id="password"><br>
+            <input type="password" th:field="*{password}" class="form-control" placeholder="Password" required id="password">
+            <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility()">
+                <img src="https://cdn-icons-png.flaticon.com/512/59/59053.png" alt="Show/Hide Password">
+            </button>
         </div>
         <button type="submit">Log in</button>
     </form>
     <p>Haven't an account? <a th:href="@{/instagram.com/login/signUp}">Sign up</a></p>
 </div>
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    }
+</script>
+
 </body>
 </html>

@@ -23,7 +23,7 @@ public class Like extends BaseEntity {
     private Boolean isLike;
 
 //*********************************************
-    @OneToOne(cascade = {DETACH})
+    @OneToOne(cascade = {DETACH}, mappedBy = "like")
     private User user;
 //*********************************************
     @ManyToOne(cascade = {DETACH})

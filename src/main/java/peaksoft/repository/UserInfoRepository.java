@@ -1,5 +1,7 @@
 package peaksoft.repository;
 
+import peaksoft.entities.UserInfo;
+
 public interface UserInfoRepository {
     // Crud methods
 
@@ -10,6 +12,6 @@ public interface UserInfoRepository {
     // find all
 
     // update
-
+    Boolean updateUserInfo(Long id, UserInfo userInfo);
     // delete
 }

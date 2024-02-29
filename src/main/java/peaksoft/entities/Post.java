@@ -8,10 +8,10 @@ import lombok.ToString;
 import peaksoft.forEntities.BaseEntity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.DETACH;
-import static jakarta.persistence.CascadeType.REMOVE;
+import static jakarta.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "posts")
@@ -24,8 +24,7 @@ public class Post extends BaseEntity {
     private String title;
     private String description;
     @Column(name = "created_At")
-    private LocalDate createdAt = LocalDate.now();
-
+    private LocalDate createdAt;
 //*********************************************
     @OneToMany(cascade = {REMOVE}, mappedBy = "post")
     private List<Comment> comments;
@@ -33,7 +32,7 @@ public class Post extends BaseEntity {
     @OneToMany(cascade = {REMOVE}, mappedBy = "post")
     private List<Like> likes;
 //*********************************************
-    @OneToMany(cascade = {REMOVE}, mappedBy = "post")
+    @OneToMany(cascade = {REMOVE, PERSIST, MERGE, REFRESH}, mappedBy = "post")
     private List<Image> images;
 //*********************************************
     @ManyToOne(cascade = {DETACH})
