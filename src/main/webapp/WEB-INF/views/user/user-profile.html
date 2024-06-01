@@ -227,7 +227,7 @@
             margin: 15% auto; /* 15% от верхнего и нижнего края экрана, центрируем */
             padding: 20px;
             border: 1px solid #888;
-            width: 80%; /* Ширина контента */
+            width: 40%; /* Ширина контента */
         }
 
         .close {
@@ -304,19 +304,40 @@
                 <div class="modal-content">
                     <span class="close" onclick="closeModal()">&times;</span>
                     <h3>Followers</h3>
+
                     <div class="subscriber" th:each="sbsbrs: ${subscribersUser}">
-                            <img th:src="${sbsbrs.userInfo.image}" alt="Subscriber">
-                            <div class="username" th:text="${sbsbrs.userName}"></div>
+                        <form th:action="@{/instagram.com/user/follower}" method="get">
+                            <input type="hidden" name="userId" th:value="${sbsbrs.id}">
+                            <div  style="display: flex; width: 500px; height: 65px; background-color: unset;">
+                            <button>
+                                <img th:src="${sbsbrs.userInfo.image}" alt="Подписчик">
+                                <div class="username" th:text="${sbsbrs.userName}"></div>
+                                <div class="username" style="display-outside: ruby-base-container" th:text="${sbsbrs.userInfo.fullName}"></div>
+                            </button>
+                                <button style="margin-left: 45px; height: 33px; margin-top: 15px;">Delete</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
             <div id="followingModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModal()">&times;</span>
-                    <h3>Followers</h3>
+                    <h3>Following</h3>
                     <div class="subscriber" th:each="sbsbrs: ${subscriptionsUser}">
-                        <img th:src="${sbsbrs.userInfo.image}" alt="Subscriber">
-                        <div class="username" th:text="${sbsbrs.userName}"></div>
+                    <form th:action="@{/instagram.com/user/follower}" method="get">
+                        <input type="hidden" name="userId" th:value="${sbsbrs.id}">
+                            <div style="display: flex">
+                                <button style="display: flex; width: 500px; height: 65px; background-color: unset;">
+                                <img th:src="${sbsbrs.userInfo.image}" alt="Подписчик">
+                                <div style="display: block; margin-left: 20px">
+                                    <h2 th:text="${sbsbrs.userName}"></h2>
+                                    <div th:text="${sbsbrs.userInfo.fullName}"></div>
+                                </div>
+                                </button>
+                                <button style="margin-left: 45px; height: 33px; margin-top: 15px;">Delete</button>
+                            </div>
+                    </form>
                     </div>
                 </div>
             </div>

@@ -298,6 +298,8 @@
                 <div class="user-header" style="display: flex; align-items: center;">
                     <h2 th:text="'     ' + ${user.getUserName()}" style="margin-right: 30px;"></h2>
                     <button id="subscribeButton" onclick="toggleSubscription(); subscribe()" th:data-userId="${user.id}">subscribe</button>
+                    <button style="margin-left: 10px; background-color: #666666; color: #dbdbdb">Send a message</button>
+                    <div style="margin-left: 20px"> * * * </div>
                 </div>
                 <div class="side"></div>
                 <h2>

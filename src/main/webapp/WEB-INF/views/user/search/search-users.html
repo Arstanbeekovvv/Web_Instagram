@@ -11,6 +11,10 @@
             align-items: center;
             padding: 20px;
             font-family: Arial, sans-serif;
+            border: 2px solid #dbdbdb; /* Добавляем рамку в сером цвете */
+            width: 500px; /* Устанавливаем ширину 500px */
+            height: 550px; /* Устанавливаем высоту 550px */
+            margin: auto; /* Выравниваем по центру */
         }
 
         .search-label {
@@ -26,7 +30,7 @@
             border-radius: 5px;
             padding: 5px;
             width: 100%;
-            max-width: 400px;
+            max-width: 480px;
         }
 
         .search-form input[type="text"] {
@@ -54,7 +58,6 @@
 
         .user-info {
             display: flex;
-            align-items: center;
             margin-top: 10px;
         }
 
@@ -64,10 +67,33 @@
             border-radius: 50%;
             margin-right: 10px;
         }
+        .user-box {
+            width: 500px;
+            height: 60px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px; /* Отступ между пользователями */
+            padding: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-image {
+            width: 50px; /* Устанавливаем ширину изображения пользователя */
+            height: auto; /* Автоматическая высота изображения */
+            margin-right: 10px; /* Отступ между изображением и именем пользователя */
+        }
 
         .username {
-            font-weight: bold;
-            font-size: 16px;
+            white-space: nowrap; /* Предотвращает перенос строки */
+            overflow: hidden; /* Скрывает любое содержимое, которое не помещается в пределах контейнера */
+            text-overflow: ellipsis; /* Добавляет многоточие, если имя пользователя слишком длинное */
+        }
+        .user-button {
+            display: flex;
+            align-items: center;
+            border: none;
+            background: none;
+            padding: 0;
         }
 
         .full-name {
@@ -96,15 +122,16 @@
     <!-- Результаты поиска -->
     <div class="search-result">
         <div class="user-info" th:each="sbsbrs: ${resultSearch}">
-            <form th:action="@{/instagram.com/user/follower}" method="get">
-                <input type="hidden" name="userId" th:value="${sbsbrs.id}">
-                <button type="submit">
-                    <img th:src="${sbsbrs.userInfo.image}" alt="Subscriber">
-                    <div class="username" th:text="${sbsbrs.userName}"></div>
-                </button>
-            </form>
+            <div class="user-box">
+                <form th:action="@{/instagram.com/user/follower}" method="get">
+                    <input type="hidden" name="userId" th:value="${sbsbrs.id}">
+                    <button type="submit" class="user-button">
+                        <div><img class="user-image" th:src="${sbsbrs.userInfo.image}" alt="Subscriber"></div>
+                        <div class="username" th:text="${sbsbrs.userName}"></div>
+                    </button>
+                </form>
+            </div>
         </div>
-        <!-- Добавьте здесь другие элементы результата поиска по мере необходимости -->
     </div>
 </div>
 

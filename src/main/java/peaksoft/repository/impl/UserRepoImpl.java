@@ -23,6 +23,7 @@ public class UserRepoImpl implements UserRepository {
     public void saveUser(User user) {
         entityManager.persist(user);
         UserInfo info = new UserInfo();
+        info.setImage("https://ca.slack-edge.com/T023L1WBFLH-U0389J9MUDV-g5833473707f-512");
         entityManager.persist(info);
         info.setUser(user);
         user.setUserInfo(info);
